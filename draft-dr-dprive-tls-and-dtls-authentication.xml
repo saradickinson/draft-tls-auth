@@ -640,6 +640,15 @@ please see http://xml.resource.org/authoring/README.html. -->
                Since encryption of DNS using (D)TLS is virtually a green-field deployment 
                DNS clients and server MUST implement only (D)TLS 1.2 or later.</t>
 
+               <t>
+                 Implmentations MUST NOT offer or provide TLS
+                 compression, since compression can leak significant
+                 amounts of information, especially to a network
+                 observer capable of forcing the user to do an
+                 arbitrary DNS lookup in the style of the <xref
+                 target="CRIME">CRIME attacks</xref>.
+               </t>
+
                <t>Implementations compliant with this profile MUST implement all of
                the following items:</t>
                 <t><list style="symbols">
@@ -661,6 +670,29 @@ please see http://xml.resource.org/authoring/README.html. -->
                 <t><xref target="I-D.ietf-tls-cached-info">Cached Information Extension</xref>
                     which avoids transmitting the server's certificate and certificate 
                     chain if the client has cached that information from a previous TLS handshake</t>
+                </list></t>
+                <t>
+                  Relevant DNS extensions for privacy-preserving DNS
+                  clients and DNS servers [TODO: does this belong
+                  elsewhere in the draft or in another document?]
+                  <list style="symbols">
+                    <t>
+                      <xref
+                      target="I-D.mayrhofer-edns0-padding">EDNS(0)
+                      padding</xref>, which allows encrypted queries
+                      and responses to hide their size as a defense
+                      against traffic analysis.
+                    </t>
+                    <t>
+                      <xref
+                      target="I-D.ietf-dnsop-edns-client-subnet">Client
+                      Subnet in DNS Queries</xref>, which potentially
+                      leaks client address information to the upstream
+                      authoritative DNS servers.  A privacy-sensitive
+                      DNS Client ought to be able to inform the DNS
+                      Resolver that it does not want any address
+                      information leaked.
+                    </t>
                 </list></t>
 
                 <t>[NOTE: The references to (works in progress) should be upgraded to 
@@ -708,7 +740,20 @@ please see http://xml.resource.org/authoring/README.html. -->
             <?rfc include="reference.I-D.ietf-dprive-dnsodtls"?>
             <?rfc include="reference.I-D.ietf-dprive-dns-over-tls"?>
             <?rfc include="reference.I-D.shore-tls-dnssec-chain-extension"?>
-
+            <?rfc include="reference.I-D.mayrhofer-edns0-padding"?>
+            <?rfc include="reference.I-D.ietf-dnsop-edns-client-subnet"?>
+      <reference anchor="CRIME">
+        <front>
+          <title>The CRIME Attack</title>
+          <author initials="J." surname="Rizzo" />
+          <author initials="T." surname="Duong">
+            <organization>
+              EKOparty Security Conference
+            </organization>
+          </author>
+          <date year="2012" />
+        </front>
+      </reference>
         </references>
 
         <section title="Changes between revisions">
