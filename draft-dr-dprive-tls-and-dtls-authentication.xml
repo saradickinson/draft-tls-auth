@@ -307,6 +307,25 @@ please see http://xml.resource.org/authoring/README.html. -->
           </section>
         </section>
 
+
+        <section title="SRV Service Label">
+          <t>
+            This specification adds a SRV service label "domains" for
+            privacy-preserving DNS servers.
+          </t>
+          <t>
+            Example service records (for TLS and DTLS respectively):
+            <list>
+              <t>
+                _domains._tcp     SRV 0 1 853 dns.example.com.
+              </t>
+              <t>
+                _domains._udp     SRV 0 1 853 dns.example.com.
+              </t>
+            </list>
+          </t>
+        </section>
+        
         <section title="Authentication in Opportunistic DNS (D)TLS Clients" anchor="opportunistic">
           <t>
             An <xref target="RFC7435">Opportunistic Security</xref>
@@ -607,7 +626,7 @@ please see http://xml.resource.org/authoring/README.html. -->
                <t> [QUESTION: Should we make recommendations about what to do if a previously
                authenticated server starts failing authentication?]</t>
         </section>
-
+        
         <section title="(D)TLS Protocol Profile" anchor="tls-profile">
             <t>This section defines the protocol profile of DNS-over-DTLS and
                DNS-over-TLS.</t>
