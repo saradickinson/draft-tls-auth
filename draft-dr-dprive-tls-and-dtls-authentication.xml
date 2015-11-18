@@ -107,9 +107,10 @@ please see http://xml.resource.org/authoring/README.html. -->
     </front>
     <middle>
       <section title="Introduction">
-            <t>To address the concerns in <xref target="RFC7626"/> the DPRIVE working group has 
+            <t>The DPRIVE working group has 
                two active documents that provide DNS
-               privacy between DNS clients and DNS servers:
+               privacy between DNS clients and DNS servers (to address the
+               concerns in <xref target="RFC7626"/>):
                <list style="symbols"> 
                    <t><xref target="I-D.ietf-dprive-dns-over-tls">DNS-over-TLS</xref> </t>
                    <t><xref target="I-D.ietf-dprive-dnsodtls">DNS-over-DTLS</xref></t>
@@ -120,9 +121,8 @@ please see http://xml.resource.org/authoring/README.html. -->
               This document defines authentication profiles for <xref
               target="RFC6347">DTLS</xref> and <xref
               target="RFC5246">TLS</xref> that specify how a DNS
-              client should authenticate a DNS server, based on a domain name
-              associated with that server.  In particular, it
-              describes:
+              client should authenticate a DNS server based on a domain name.
+              In particular, it describes:
               <list style="symbols">
                 <t>
                   How a DNS client can obtain a domain name for a
@@ -130,11 +130,11 @@ please see http://xml.resource.org/authoring/README.html. -->
                 </t>
                 <t>
                   What are the acceptable credentials a DNS server can present
-                  to prove its control over a given domain name.
+                  to prove its identity in relation to a given domain name.
                 </t>
                 <t>
                   How a DNS client can verify that any given
-                  credential matches the domain name for the server.
+                  credential matches the domain name obtained for a server.
                 </t>
               </list>
             </t>
@@ -160,17 +160,14 @@ please see http://xml.resource.org/authoring/README.html. -->
             Several terms are used specifically in the context of this draft:
             <list style="symbols">
               <t>
-                DNS client: a DNS stub implementation or forwarder/proxy.
-                A DNS client receives requests from an
-                application or a system and sends them to some
-                pre-configured set of upstream DNS servers for resolution.  In the
-                case of a forwarder, we use the term "DNS
-                client" to discuss side that originates queries.
+                DNS client: a DNS stub resolver or forwarder/proxy.
+                In the case of a forwarder, the term "DNS
+                client" is used to discuss the side that sends queries.
               </t>
               <t>
-                DNS server: a DNS Recursive resolver or forwarder/proxy.  
-                In the case of a forwarder, we
-                use the term "DNS server" to discuss the side that responds to queries.
+                DNS server: a DNS recursive resolver or forwarder/proxy.
+                In the case of a forwarder, the term "DNS server" 
+                is used to discuss the side that responds to queries.
               </t>
               <t>
                 Credential: Information available for a DNS server which proves
@@ -200,7 +197,7 @@ please see http://xml.resource.org/authoring/README.html. -->
                 Security</xref>
               </t>
               <t>
-                DNS privacy server: A DNS server that:
+                Privacy-enabling DNS server: A DNS server that:
                 <list style="symbols">
                   <t>
                     MUST implement <xref
@@ -301,7 +298,7 @@ please see http://xml.resource.org/authoring/README.html. -->
         <section title="SRV Service Label">
           <t>
             This specification adds a SRV service label "domains" for
-            privacy-preserving DNS servers.
+            privacy-enabling DNS servers.
           </t>
           <t>
             Example service records (for TLS and DTLS respectively):
@@ -348,8 +345,8 @@ please see http://xml.resource.org/authoring/README.html. -->
 
         <section title="Authentication for Strict (D)TLS Privacy">
           <t>
-            To authenticate a server providing DNS privacy, the DNS
-            client needs to know the domain name for each DNS privacy
+            To authenticate a privacy-enabling DNS server, the DNS
+            client needs to know the domain name for each
             server it is willing to contact.  This is necessary to
             protect against active attacks on DNS privacy.
           </t>
@@ -370,9 +367,9 @@ please see http://xml.resource.org/authoring/README.html. -->
             mechanism succeeds.
           </t>
           <t>
-           With Strict privacy, the DNS client MUST signal to the user when 
-           none of the DNS privacy servers are available, and MUST NOT provide DNS
-           service until at least one of the DNS privacy servers becomes
+           With strict privacy, the DNS client MUST signal to the user when 
+           none of the privacy-enabling DNS servers are available, and MUST NOT provide DNS
+           service until at least one of the privacy-enabling DNS servers becomes
            available.
           </t>
           <t>
@@ -381,14 +378,14 @@ please see http://xml.resource.org/authoring/README.html. -->
             strict one-to-one mapping of names to IP addresses ]
           </t>
           <t>
-            A DNS privacy server may be temporarily unavailable when
+            A privacy-enabling DNS server may be temporarily unavailable when
             configuring a network.  For example, for clients on
             networks that require registration through web-based login
             (a.k.a. "captive portals"), such registration may rely on
             DNS interception and spoofing.  Techniques such as those
             used by DNSSEC-trigger [dnssec-trigger] MAY be used during
             network configuration, with the intent to transition to
-            the designated strict DNS privacy servers after captive
+            the designated privacy-enabling DNS servers after captive
             portal registration.  The user MUST be alerted that the
             DNS is not private during such bootstrap.
           </t>
@@ -399,7 +396,7 @@ please see http://xml.resource.org/authoring/README.html. -->
             <section title="Full direct configuration">
               <t>
                 DNS clients may be directly and securely provisioned
-                with the domain name of each DNS privacy server.  For
+                with the domain name of each privacy-enabling DNS server.  For
                 example, using a configuration file or API.
               </t>
               <t>
@@ -420,13 +417,13 @@ please see http://xml.resource.org/authoring/README.html. -->
               </t>
               <t>
                 A DNS client may be configured directly with only the
-                domain name of its DNS privacy server.
+                domain name of its privacy-enabling DNS server.
               </t>
               <t>
                 It can then use opportunistic DNS connections to
                 untrusted DNS servers (e.g. provided by the local
                 DHCP service) to establish the IP address of the
-                intended privacy-preserving DNS server by doing a
+                intended privacy-enabling DNS server by doing a
                 lookup of SRV records.
               </t>
               <t>
@@ -439,7 +436,7 @@ please see http://xml.resource.org/authoring/README.html. -->
               </t>
               <t>
                 A DNS client so configured that successfully connects
-                to a configured DNS privacy server MAY choose to
+                to a privacy-enabling DNS server MAY choose to
                 locally cache the looked up addresses in order to not
                 have to repeat the opportunistic lookup.
               </t>

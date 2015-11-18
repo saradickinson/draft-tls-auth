@@ -92,15 +92,15 @@ Table of Contents
        9.2.2.  TLS DNSSEC Chain extension  . . . . . . . . . . . . .   9
    10. Combined Credentials with SPKI Pinsets  . . . . . . . . . . .  10
    11. Server capability probing and caching by DNS clients  . . . .  10
-   12. (D)TLS Protocol Profile . . . . . . . . . . . . . . . . . . .  11
+   12. (D)TLS Protocol Profile . . . . . . . . . . . . . . . . . . .  10
    13. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  12
    14. Security Considerations . . . . . . . . . . . . . . . . . . .  12
    15. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  12
    16. References  . . . . . . . . . . . . . . . . . . . . . . . . .  12
      16.1.  Normative References . . . . . . . . . . . . . . . . . .  12
      16.2.  Informative References . . . . . . . . . . . . . . . . .  13
-   Appendix A.  Changes between revisions  . . . . . . . . . . . . .  15
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  15
+   Appendix A.  Changes between revisions  . . . . . . . . . . . . .  14
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  14
 
 1.  Introduction
 
@@ -114,9 +114,9 @@ Dickinson & Reddy         Expires May 21, 2016                  [Page 2]
 Internet-Draft            (D)TLS Authentication            November 2015
 
 
-   To address the concerns in [RFC7626] the DPRIVE working group has two
-   active documents that provide DNS privacy between DNS clients and DNS
-   servers:
+   The DPRIVE working group has two active documents that provide DNS
+   privacy between DNS clients and DNS servers (to address the concerns
+   in [RFC7626]):
 
    o  DNS-over-TLS [I-D.ietf-dprive-dns-over-tls]
 
@@ -124,16 +124,15 @@ Internet-Draft            (D)TLS Authentication            November 2015
 
    This document defines authentication profiles for DTLS [RFC6347] and
    TLS [RFC5246] that specify how a DNS client should authenticate a DNS
-   server, based on a domain name associated with that server.  In
-   particular, it describes:
+   server based on a domain name.  In particular, it describes:
 
    o  How a DNS client can obtain a domain name for a DNS server.
 
    o  What are the acceptable credentials a DNS server can present to
-      prove its control over a given domain name.
+      prove its identity in relation to a given domain name.
 
    o  How a DNS client can verify that any given credential matches the
-      domain name for the server.
+      domain name obtained for a server.
 
    [TODO: Is 'profile' the best word to use here for authentication
    profiles?]
@@ -152,15 +151,16 @@ Internet-Draft            (D)TLS Authentication            November 2015
 
    Several terms are used specifically in the context of this draft:
 
-   o  DNS client: a DNS stub implementation or forwarder/proxy.  A DNS
-      client receives requests from an application or a system and sends
-      them to some pre-configured set of upstream DNS servers for
-      resolution.  In the case of a forwarder, we use the term "DNS
-      client" to discuss side that originates queries.
+   o  DNS client: a DNS stub resolver or forwarder/proxy.  In the case
+      of a forwarder, the term "DNS client" is used to discuss the side
+      that sends queries.
 
-   o  DNS server: a DNS Recursive resolver or forwarder/proxy.  In the
-      case of a forwarder, we use the term "DNS server" to discuss the
+   o  DNS server: a DNS recursive resolver or forwarder/proxy.  In the
+      case of a forwarder, the term "DNS server" is used to discuss the
       side that responds to queries.
+
+   o  Credential: Information available for a DNS server which proves
+      its identity.  Credentials discussed here include:
 
 
 
@@ -169,9 +169,6 @@ Dickinson & Reddy         Expires May 21, 2016                  [Page 3]
 
 Internet-Draft            (D)TLS Authentication            November 2015
 
-
-   o  Credential: Information available for a DNS server which proves
-      its identity.  Credentials discussed here include:
 
       *  X.509 certificate
 
@@ -189,7 +186,7 @@ Internet-Draft            (D)TLS Authentication            November 2015
    o  (D)TLS: Transport Layer Security [RFC5246] and (possibly) Datagram
       Transport Layer Security [RFC6347]
 
-   o  DNS privacy server: A DNS server that:
+   o  Privacy-enabling DNS server: A DNS server that:
 
       *  MUST implement DNS-over-TLS [I-D.ietf-dprive-dns-over-tls] and
          MAY implement DNS-over-DTLS [I-D.ietf-dprive-dnsodtls].
@@ -216,6 +213,9 @@ Internet-Draft            (D)TLS Authentication            November 2015
 
    o  Authentication of DNS clients by DNS servers.
 
+   o  SPKI-pinset-based authentication.  This is defined in
+      [I-D.ietf-dprive-dns-over-tls].  However, this document does
+      describe how to combine the two mechanisms in Section 10.
 
 
 
@@ -225,10 +225,6 @@ Dickinson & Reddy         Expires May 21, 2016                  [Page 4]
 
 Internet-Draft            (D)TLS Authentication            November 2015
 
-
-   o  SPKI-pinset-based authentication.  This is defined in
-      [I-D.ietf-dprive-dns-over-tls].  However, this document does
-      describe how to combine the two mechanisms in Section 10.
 
    o  Any server identifier other than domain names, including IP
       address, organizational name, country of origin, etc.
@@ -269,11 +265,15 @@ Internet-Draft            (D)TLS Authentication            November 2015
 5.  SRV Service Label
 
    This specification adds a SRV service label "domains" for privacy-
-   preserving DNS servers.
+   enabling DNS servers.
 
    Example service records (for TLS and DTLS respectively):
 
       _domains._tcp SRV 0 1 853 dns.example.com.
+
+      _domains._udp SRV 0 1 853 dns.example.com.
+
+
 
 
 
@@ -281,8 +281,6 @@ Dickinson & Reddy         Expires May 21, 2016                  [Page 5]
 
 Internet-Draft            (D)TLS Authentication            November 2015
 
-
-      _domains._udp SRV 0 1 853 dns.example.com.
 
 6.  Authentication in Opportunistic DNS-over-(D)TLS
 
@@ -308,10 +306,9 @@ Internet-Draft            (D)TLS Authentication            November 2015
 
 7.  Authentication for Strict (D)TLS Privacy
 
-   To authenticate a server providing DNS privacy, the DNS client needs
-   to know the domain name for each DNS privacy server it is willing to
-   contact.  This is necessary to protect against active attacks on DNS
-   privacy.
+   To authenticate a privacy-enabling DNS server, the DNS client needs
+   to know the domain name for each server it is willing to contact.
+   This is necessary to protect against active attacks on DNS privacy.
 
    A DNS client requiring strict privacy MUST either use one of the
    sources listed in Section 8 to obtain a domain name for the server it
@@ -324,11 +321,14 @@ Internet-Draft            (D)TLS Authentication            November 2015
    described in Section 9 to authenticate the server, and MUST abort
    connections to a server when no verification mechanism succeeds.
 
-   With Strict privacy, the DNS client MUST signal to the user when none
-   of the DNS privacy servers are available, and MUST NOT provide DNS
-   service until at least one of the DNS privacy servers becomes
-   available.
+   With strict privacy, the DNS client MUST signal to the user when none
+   of the privacy-enabling DNS servers are available, and MUST NOT
+   provide DNS service until at least one of the privacy-enabling DNS
+   servers becomes available.
 
+   [ TODO: discuss situations where one name is sufficient for all IP
+   addresses, or whether we want to mandate a strict one-to-one mapping
+   of names to IP addresses ]
 
 
 
@@ -338,27 +338,23 @@ Dickinson & Reddy         Expires May 21, 2016                  [Page 6]
 Internet-Draft            (D)TLS Authentication            November 2015
 
 
-   [ TODO: discuss situations where one name is sufficient for all IP
-   addresses, or whether we want to mandate a strict one-to-one mapping
-   of names to IP addresses ]
-
-   A DNS privacy server may be temporarily unavailable when configuring
-   a network.  For example, for clients on networks that require
-   registration through web-based login (a.k.a. "captive portals"), such
-   registration may rely on DNS interception and spoofing.  Techniques
-   such as those used by DNSSEC-trigger [dnssec-trigger] MAY be used
-   during network configuration, with the intent to transition to the
-   designated strict DNS privacy servers after captive portal
-   registration.  The user MUST be alerted that the DNS is not private
-   during such bootstrap.
+   A privacy-enabling DNS server may be temporarily unavailable when
+   configuring a network.  For example, for clients on networks that
+   require registration through web-based login (a.k.a. "captive
+   portals"), such registration may rely on DNS interception and
+   spoofing.  Techniques such as those used by DNSSEC-trigger [dnssec-
+   trigger] MAY be used during network configuration, with the intent to
+   transition to the designated privacy-enabling DNS servers after
+   captive portal registration.  The user MUST be alerted that the DNS
+   is not private during such bootstrap.
 
 8.  Out of Band Sources of Domain Name
 
 8.1.  Full direct configuration
 
    DNS clients may be directly and securely provisioned with the domain
-   name of each DNS privacy server.  For example, using a configuration
-   file or API.
+   name of each privacy-enabling DNS server.  For example, using a
+   configuration file or API.
 
    In this case, direct configuration for a DNS client would consist of
    both an IP address and a domain name for each DNS server.
@@ -371,12 +367,12 @@ Internet-Draft            (D)TLS Authentication            November 2015
    [ TODO: do we want to keep this section? ]
 
    A DNS client may be configured directly with only the domain name of
-   its DNS privacy server.
+   its privacy-enabling DNS server.
 
    It can then use opportunistic DNS connections to untrusted DNS
    servers (e.g. provided by the local DHCP service) to establish the IP
-   address of the intended privacy-preserving DNS server by doing a
-   lookup of SRV records.
+   address of the intended privacy-enabling DNS server by doing a lookup
+   of SRV records.
 
    Example: For a DNS client configured in this way to do strict DNS
    privacy to dns.example.net, it would opportunistically look up the
@@ -384,8 +380,12 @@ Internet-Draft            (D)TLS Authentication            November 2015
    opportunistic A and/or AAAA lookups) for the resulting SRV
    response(s).
 
+   A DNS client so configured that successfully connects to a privacy-
+   enabling DNS server MAY choose to locally cache the looked up
+   addresses in order to not have to repeat the opportunistic lookup.
 
-
+   [ TODO: specify how long such caching is acceptable?  Is this limited
+   to the TTL or can we make an exception? ]
 
 
 
@@ -393,13 +393,6 @@ Dickinson & Reddy         Expires May 21, 2016                  [Page 7]
 
 Internet-Draft            (D)TLS Authentication            November 2015
 
-
-   A DNS client so configured that successfully connects to a configured
-   DNS privacy server MAY choose to locally cache the looked up
-   addresses in order to not have to repeat the opportunistic lookup.
-
-   [ TODO: specify how long such caching is acceptable?  Is this limited
-   to the TTL or can we make an exception? ]
 
 8.3.  DHCP
 
@@ -443,19 +436,19 @@ Internet-Draft            (D)TLS Authentication            November 2015
 
       DNS-ID: dns.example.com
 
-
-
-Dickinson & Reddy         Expires May 21, 2016                  [Page 8]
-
-Internet-Draft            (D)TLS Authentication            November 2015
-
-
       SRV-ID: _domains.dns.example.com
 
    If either of the Reference Identifiers are found in the X.509
    certificate's subjectAltName extension as described in section 6 of
    [RFC6125], the DNS client should accept the certificate for the
    server.
+
+
+
+Dickinson & Reddy         Expires May 21, 2016                  [Page 8]
+
+Internet-Draft            (D)TLS Authentication            November 2015
+
 
    [ TODO: do we want to talk about multiple domain names for a single
    server here? ]
@@ -494,18 +487,6 @@ Internet-Draft            (D)TLS Authentication            November 2015
    this extension, it can provide the full chain to the client in the
    handshake.
 
-
-
-
-
-
-
-
-Dickinson & Reddy         Expires May 21, 2016                  [Page 9]
-
-Internet-Draft            (D)TLS Authentication            November 2015
-
-
    If the DNS client offers the TLS DNSSEC Chain extension, it MUST be
    capable of validating the full DNSSEC authentication chain down to
    the leaf.  If the supplied DNSSEC chain does not validate, the client
@@ -517,6 +498,13 @@ Internet-Draft            (D)TLS Authentication            November 2015
    (section 2.1.1 of [RFC6698]) and a Selector of 1 (SPKI) (section
    2.1.2) would completely remove all X.509 and certificate authorities
    from the verification path and allows for private certification ]
+
+
+
+Dickinson & Reddy         Expires May 21, 2016                  [Page 9]
+
+Internet-Draft            (D)TLS Authentication            November 2015
+
 
    [ TODO: discuss combination of DNSSEC Chain Extension with cert
    validation.  Note that the combination depends on the Certificate
@@ -554,14 +542,6 @@ Internet-Draft            (D)TLS Authentication            November 2015
    using both protocols before failing or falling back to a lower
    security.  DNS clients using opportunistic security SHOULD try all
    available servers in order to obtain an authenticated encrypted
-
-
-
-Dickinson & Reddy         Expires May 21, 2016                 [Page 10]
-
-Internet-Draft            (D)TLS Authentication            November 2015
-
-
    connection before falling back to a lower security.  (RATIONALE: This
    approach can increase latency while discovering server capabilities
    but maximizes the chance of sending the query over an authenticated
@@ -574,6 +554,13 @@ Internet-Draft            (D)TLS Authentication            November 2015
 
    This section defines the protocol profile of DNS-over-DTLS and DNS-
    over-TLS.
+
+
+
+Dickinson & Reddy         Expires May 21, 2016                 [Page 10]
+
+Internet-Draft            (D)TLS Authentication            November 2015
+
 
    There are known attacks on TLS, such as machine-in-the-middle and
    protocol downgrade.  These are general attacks on TLS and not
@@ -607,17 +594,6 @@ Internet-Draft            (D)TLS Authentication            November 2015
       trips by allowing the TLS second flight of messages
       (ChangeCipherSpec) to also contain the (encrypted) DNS query
 
-
-
-
-
-
-
-Dickinson & Reddy         Expires May 21, 2016                 [Page 11]
-
-Internet-Draft            (D)TLS Authentication            November 2015
-
-
    o  Cached Information Extension [I-D.ietf-tls-cached-info] which
       avoids transmitting the server's certificate and certificate chain
       if the client has cached that information from a previous TLS
@@ -634,6 +610,14 @@ Internet-Draft            (D)TLS Authentication            November 2015
 
    o  Client Subnet in DNS Queries [I-D.ietf-dnsop-edns-client-subnet],
       which potentially leaks client address information to the upstream
+
+
+
+Dickinson & Reddy         Expires May 21, 2016                 [Page 11]
+
+Internet-Draft            (D)TLS Authentication            November 2015
+
+
       authoritative DNS servers.  A DNS client ought to be able to
       inform the DNS Resolver that it does not want any address
       information leaked.
@@ -666,14 +650,6 @@ Internet-Draft            (D)TLS Authentication            November 2015
 
    [RFC4985]  Santesson, S., "Internet X.509 Public Key Infrastructure
               Subject Alternative Name for Expression of Service Name",
-
-
-
-Dickinson & Reddy         Expires May 21, 2016                 [Page 12]
-
-Internet-Draft            (D)TLS Authentication            November 2015
-
-
               RFC 4985, DOI 10.17487/RFC4985, August 2007,
               <http://www.rfc-editor.org/info/rfc4985>.
 
@@ -690,6 +666,14 @@ Internet-Draft            (D)TLS Authentication            November 2015
    [RFC6125]  Saint-Andre, P. and J. Hodges, "Representation and
               Verification of Domain-Based Application Service Identity
               within Internet Public Key Infrastructure Using X.509
+
+
+
+Dickinson & Reddy         Expires May 21, 2016                 [Page 12]
+
+Internet-Draft            (D)TLS Authentication            November 2015
+
+
               (PKIX) Certificates in the Context of Transport Layer
               Security (TLS)", RFC 6125, DOI 10.17487/RFC6125, March
               2011, <http://www.rfc-editor.org/info/rfc6125>.
@@ -720,16 +704,6 @@ Internet-Draft            (D)TLS Authentication            November 2015
    [CRIME]    Rizzo, J. and T. Duong, "The CRIME Attack", 2012.
 
    [I-D.ietf-dnsop-edns-client-subnet]
-
-
-
-
-
-Dickinson & Reddy         Expires May 21, 2016                 [Page 13]
-
-Internet-Draft            (D)TLS Authentication            November 2015
-
-
               Contavalli, C., Gaast, W., tale, t., and W. Kumari,
               "Client Subnet in DNS Queries", draft-ietf-dnsop-edns-
               client-subnet-04 (work in progress), September 2015.
@@ -746,6 +720,16 @@ Internet-Draft            (D)TLS Authentication            November 2015
               progress), October 2015.
 
    [I-D.ietf-tls-cached-info]
+
+
+
+
+
+Dickinson & Reddy         Expires May 21, 2016                 [Page 13]
+
+Internet-Draft            (D)TLS Authentication            November 2015
+
+
               Santesson, S. and H. Tschofenig, "Transport Layer Security
               (TLS) Cached Information Extension", draft-ietf-tls-
               cached-info-20 (work in progress), October 2015.
@@ -778,14 +762,6 @@ Internet-Draft            (D)TLS Authentication            November 2015
               Most of the Time", RFC 7435, DOI 10.17487/RFC7435,
               December 2014, <http://www.rfc-editor.org/info/rfc7435>.
 
-
-
-
-Dickinson & Reddy         Expires May 21, 2016                 [Page 14]
-
-Internet-Draft            (D)TLS Authentication            November 2015
-
-
    [RFC7469]  Evans, C., Palmer, C., and R. Sleevi, "Public Key Pinning
               Extension for HTTP", RFC 7469, DOI 10.17487/RFC7469, April
               2015, <http://www.rfc-editor.org/info/rfc7469>.
@@ -800,6 +776,15 @@ Appendix A.  Changes between revisions
    publication.]
 
 Authors' Addresses
+
+
+
+
+
+Dickinson & Reddy         Expires May 21, 2016                 [Page 14]
+
+Internet-Draft            (D)TLS Authentication            November 2015
+
 
    Sara Dickinson
    Sinodun Internet Technologies
@@ -820,6 +805,21 @@ Authors' Addresses
    India
 
    Email: tireddy@cisco.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
