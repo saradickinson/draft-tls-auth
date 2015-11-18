@@ -41,7 +41,7 @@ please see http://xml.resource.org/authoring/README.html. -->
     <front>
         <!-- The abbreviated title is used in the page header - it is only necessary if the
     full title is longer than 39 characters -->
-        <title abbrev="(D)TLS Authentication">Authentication and (D)TLS Profiles forDNS-over-TLS and DNS-over-DTLS</title>
+        <title abbrev="(D)TLS Authentication">Authentication and (D)TLS Profiles for DNS-over-TLS and DNS-over-DTLS</title>
         <!-- add 'role="editor"' below for the editors if appropriate -->
         <!-- Another author who claims to be an editor -->
         <author fullname="Sara Dickinson" initials="S." surname="Dickinson">
@@ -173,17 +173,11 @@ please see http://xml.resource.org/authoring/README.html. -->
                 use the term "DNS server" to discuss the side that responds to queries.
               </t>
               <t>
-                Reference Identifier: a Reference Identifier as
-                described in <xref target="RFC6125"/>, constructed by
-                the DNS client when connecting to the DNS server.
-              </t>
-              <t>
-                Credential: Information provided by a DNS server which proves
-                its identity.  Covered
-                credentials include:
+                Credential: Information available for a DNS server which proves
+                its identity.  Credentials discussed here include:
                 <list style="symbols">
                   <t>X.509 certificate</t>
-                  <t>DNSSEC chain to TLSA record</t>
+                  <t>DNSSEC validated chain to a TLSA record</t>
                 </list>
               </t>
               <t>
@@ -193,6 +187,11 @@ please see http://xml.resource.org/authoring/README.html. -->
                 information in a manner similar to <xref
                 target="RFC7469">HPKP</xref>.  An SPKI pinset is a
                 collection of these pins that constrains a DNS server.
+              </t>
+              <t>
+                Reference Identifier: a Reference Identifier as
+                described in <xref target="RFC6125"/>, constructed by
+                the DNS client when performing TLS authentication of a DNS server.
               </t>
               <t>
                 (D)TLS: <xref target="RFC5246">Transport Layer
@@ -230,7 +229,7 @@ please see http://xml.resource.org/authoring/README.html. -->
 
         <section title="Scope">
           <t>
-            This document is limited to strong, domain-name-based
+            This document is limited to domain-name-based
             authentication of DNS servers by DNS clients (as defined in the 
             terminology section), and the TLS profiles needed to
             support this.  As such, the following things are out of
@@ -282,7 +281,7 @@ please see http://xml.resource.org/authoring/README.html. -->
               IP address of a DNS server.
             </t>
             <t>
-              As such, before connecting to its recursive resolver, a
+              As such, before connecting to a DNS server, a
               DNS client needs to learn the domain name it should associated with the IP
               address of a DNS server.
             </t>

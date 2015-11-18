@@ -9,7 +9,7 @@ Expires: May 21, 2016                                              Cisco
                                                        November 18, 2015
 
 
-  Authentication and (D)TLS Profiles forDNS-over-TLS and DNS-over-DTLS
+ Authentication and (D)TLS Profiles for DNS-over-TLS and DNS-over-DTLS
               draft-dr-dprive-profiles-for-tls-and-dtls-01
 
 Abstract
@@ -170,21 +170,21 @@ Dickinson & Reddy         Expires May 21, 2016                  [Page 3]
 Internet-Draft            (D)TLS Authentication            November 2015
 
 
-   o  Reference Identifier: a Reference Identifier as described in
-      [RFC6125], constructed by the DNS client when connecting to the
-      DNS server.
-
-   o  Credential: Information provided by a DNS server which proves its
-      identity.  Covered credentials include:
+   o  Credential: Information available for a DNS server which proves
+      its identity.  Credentials discussed here include:
 
       *  X.509 certificate
 
-      *  DNSSEC chain to TLSA record
+      *  DNSSEC validated chain to a TLSA record
 
    o  SPKI Pinsets: [I-D.ietf-dprive-dns-over-tls] describes the use of
       cryptographic digests to "pin" public key information in a manner
       similar to HPKP [RFC7469].  An SPKI pinset is a collection of
       these pins that constrains a DNS server.
+
+   o  Reference Identifier: a Reference Identifier as described in
+      [RFC6125], constructed by the DNS client when performing TLS
+      authentication of a DNS server.
 
    o  (D)TLS: Transport Layer Security [RFC5246] and (possibly) Datagram
       Transport Layer Security [RFC6347]
@@ -207,10 +207,10 @@ Internet-Draft            (D)TLS Authentication            November 2015
 
 3.  Scope
 
-   This document is limited to strong, domain-name-based authentication
-   of DNS servers by DNS clients (as defined in the terminology
-   section), and the TLS profiles needed to support this.  As such, the
-   following things are out of scope:
+   This document is limited to domain-name-based authentication of DNS
+   servers by DNS clients (as defined in the terminology section), and
+   the TLS profiles needed to support this.  As such, the following
+   things are out of scope:
 
    o  Authentication of authoritative servers by recursive resolvers.
 
@@ -252,9 +252,9 @@ Internet-Draft            (D)TLS Authentication            November 2015
    this connection.  A DNS client therefore has a bootstrap problem.
    DNS clients typically know only the IP address of a DNS server.
 
-   As such, before connecting to its recursive resolver, a DNS client
-   needs to learn the domain name it should associated with the IP
-   address of a DNS server.
+   As such, before connecting to a DNS server, a DNS client needs to
+   learn the domain name it should associated with the IP address of a
+   DNS server.
 
 4.3.  DNSSEC
 
