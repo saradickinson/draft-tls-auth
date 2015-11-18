@@ -249,7 +249,7 @@ Internet-Draft            (D)TLS Authentication            November 2015
    DNS clients typically know only the IP address of a DNS server.
 
    As such, before connecting to a DNS server, a DNS client needs to
-   learn the domain name it should associated with the IP address of a
+   learn the domain name it should associate with the IP address of a
    DNS server.
 
 4.3.  DNSSEC
@@ -321,14 +321,14 @@ Internet-Draft            (D)TLS Authentication            November 2015
    described in Section 9 to authenticate the server, and MUST abort
    connections to a server when no verification mechanism succeeds.
 
-   With strict privacy, the DNS client MUST signal to the user when none
-   of the privacy-enabling DNS servers are available, and MUST NOT
-   provide DNS service until at least one of the privacy-enabling DNS
-   servers becomes available.
+   With strict privacy, the DNS client MUST NOT provide DNS service
+   until at least one of the privacy-enabling DNS servers becomes
+   available.
 
    [ TODO: discuss situations where one name is sufficient for all IP
    addresses, or whether we want to mandate a strict one-to-one mapping
    of names to IP addresses ]
+
 
 
 
