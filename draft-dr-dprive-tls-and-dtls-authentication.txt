@@ -267,12 +267,12 @@ Internet-Draft            (D)TLS Authentication            November 2015
 
 5.  SRV Service Label
 
-   This specification adds a SRV service label "domains" for privacy-
+   This specification adds a SRV service label "domain-s" for privacy-
    enabling DNS servers.
 
    Example service records (for TLS and DTLS respectively):
 
-      _domains._tcp SRV 0 1 853 dns.example.com.
+      _domain-s._tcp SRV 0 1 853 dns.example.com.
 
 
 
@@ -282,7 +282,7 @@ Dickinson & Reddy         Expires May 21, 2016                  [Page 5]
 Internet-Draft            (D)TLS Authentication            November 2015
 
 
-      _domains._udp SRV 0 1 853 dns.example.com.
+      _domain-s._udp SRV 0 1 853 dns.example.com.
 
 6.  Authentication in an Opportunistic DNS-over-(D)TLS Profile
 
@@ -380,7 +380,7 @@ Internet-Draft            (D)TLS Authentication            November 2015
 
    Example: For a DNS client configured in this way to do strict DNS
    privacy to dns.example.net, it would opportunistically look up the
-   SRV for _domains._tcp.dns.example.net and determine addresses (via
+   SRV for _domain-s._tcp.dns.example.net and determine addresses (via
    opportunistic A and/or AAAA lookups) for the resulting SRV
    response(s).
 
@@ -437,7 +437,7 @@ Internet-Draft            (D)TLS Authentication            November 2015
 
    A DNS client constructs two Reference Identifiers for the server
    based on the domain name: A DNS-ID and an SRV-ID [RFC4985].  The DNS-
-   ID is simply the domain name itself.  The SRV-ID uses a "_domains."
+   ID is simply the domain name itself.  The SRV-ID uses a "_domain-s."
    prefix.  So if the configured domain name is "dns.example.com", then
    the two Reference Identifiers are:
 
@@ -450,7 +450,7 @@ Dickinson & Reddy         Expires May 21, 2016                  [Page 8]
 Internet-Draft            (D)TLS Authentication            November 2015
 
 
-      SRV-ID: _domains.dns.example.com
+      SRV-ID: _domain-s.dns.example.com
 
    If either of the Reference Identifiers are found in the X.509
    certificate's subjectAltName extension as described in section 6 of
@@ -655,8 +655,8 @@ Internet-Draft            (D)TLS Authentication            November 2015
 
 15.  Acknowledgements
 
-   [TODO - just an initial list the moment] Daniel Kahn Gillmore, Shumon
-   Huque, Melinda Shore, John Dickinson, DTLS-over-TLS authors, DNS-
+   [TODO - just an initial list the moment] Daniel Kahn Gillmor, Shumon
+   Huque, Melinda Shore, John Dickinson, DNS-over-DTLS authors, DNS-
    over-TLS authors.
 
 16.  References
