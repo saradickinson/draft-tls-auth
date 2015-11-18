@@ -138,7 +138,7 @@ please see http://xml.resource.org/authoring/README.html. -->
                 </t>
               </list>
             </t>
-            <t>[TODO: Is 'profile' the best word to use here for authentication profiles?]</t>
+
             <t>
               This document also defines a (D)TLS protocol profile for
               use with DNS. This profile defines the configuration
@@ -147,7 +147,10 @@ please see http://xml.resource.org/authoring/README.html. -->
               transporting DNS, and to support the authentication
               profiles defined here.
             </t>
-
+            <t>[TODO: Note the term profile is used both in 'authentication 
+                profiles' and '(D)TLS profile. This is done to be consistent with 
+                the existing drafts, but it would be clearer to use different terms
+                since they are quite different things.]</t>
         </section>
 
         <section title="Terminology">
@@ -228,7 +231,7 @@ please see http://xml.resource.org/authoring/README.html. -->
           <t>
             This document is limited to domain-name-based
             authentication of DNS servers by DNS clients (as defined in the 
-            terminology section), and the TLS profiles needed to
+            terminology section), and the (D)TLS profiles needed to
             support this.  As such, the following things are out of
             scope:
             <list style="symbols">
@@ -243,7 +246,8 @@ please see http://xml.resource.org/authoring/README.html. -->
                 SPKI-pinset-based authentication.  This is defined in
                 <xref target="I-D.ietf-dprive-dns-over-tls"/>.
                 However, this document does describe how to combine
-                the two mechanisms in <xref target="combined-auth"/>.
+                that approach with this domain name based mechanism in 
+                <xref target="combined-auth"/>.
               </t>
               <t>
                 Any server identifier other than domain names,
@@ -280,7 +284,7 @@ please see http://xml.resource.org/authoring/README.html. -->
             <t>
               As such, before connecting to a DNS server, a
               DNS client needs to learn the domain name it should associate 
-              with the IP address of a DNS server.
+              with the IP address of a DNS server for authentication purposes.
             </t>
           </section>
           <section title="DNSSEC">
@@ -313,7 +317,7 @@ please see http://xml.resource.org/authoring/README.html. -->
           </t>
         </section>
         
-        <section title="Authentication in Opportunistic DNS-over-(D)TLS" anchor="opportunistic">
+        <section title="Authentication in an Opportunistic DNS-over-(D)TLS Profile" anchor="opportunistic">
           <t>
             An <xref target="RFC7435">Opportunistic Security</xref>
             profile is described in <xref
@@ -334,8 +338,8 @@ please see http://xml.resource.org/authoring/README.html. -->
             (e.g. failover) MUST NOT mix opportunistically-configured
             resolvers or non-(D)TLS resolvers with strictly-configured
             (D)TLS resolvers. Doing so would invalidate the
-            protections offered against an active attacker.
-            [SARA->DKG: I think I see what you are getting at here, but I think of it that
+            protections offered against an active attacker.</t>
+            <t>[SARA->DKG: I think I see what you are getting at here, but I think of it that
             the 'profile' is a setting that applies to the
             resolution of a particular query, it is
             not a property a DNS server (nor the client). And so I think that is
@@ -343,9 +347,9 @@ please see http://xml.resource.org/authoring/README.html. -->
           </t>
         </section>
 
-        <section title="Authentication for Strict (D)TLS Privacy">
+        <section title="Authentication for a Strict DNS-over(D)TLS Privacy Profile">
           <t>
-            To authenticate a privacy-enabling DNS server, the DNS
+            To authenticate a privacy-enabling DNS server, a DNS
             client needs to know the domain name for each
             server it is willing to contact.  This is necessary to
             protect against active attacks on DNS privacy.
@@ -385,7 +389,7 @@ please see http://xml.resource.org/authoring/README.html. -->
             used by DNSSEC-trigger [dnssec-trigger] MAY be used during
             network configuration, with the intent to transition to
             the designated privacy-enabling DNS servers after captive
-            portal registration.  The user MUST be alerted that the
+            portal registration.  The system MUST alert by some means that the
             DNS is not private during such bootstrap.
           </t>
         </section>
@@ -451,7 +455,7 @@ please see http://xml.resource.org/authoring/README.html. -->
                 Some clients may have an established trust
                 relationship with a known <xref
                 target="RFC2131">DHCP</xref> server for discovering
-                their network configuraton.  In the typical case, such
+                their network configuration.  In the typical case, such
                 a DHCP server provides a list of IP addresses for DNS
                 servers (see section 3.8 of <xref
                 target="RFC2132"/>), but does not provide a domain
@@ -588,8 +592,10 @@ please see http://xml.resource.org/authoring/README.html. -->
         </section>
 
         <section title="Combined Credentials with SPKI Pinsets" anchor="combined-auth">
-          <t>
-            A DNS client that is configured with both a domain name and a SPKI pinset 
+          <t>   The SPKI pinset profile described in 
+            <xref target="I-D.ietf-dprive-dns-over-tls"/> MAY be used with 
+            DNS-over-TLS or DNS-over- DTLS.
+            However, a DNS client that is configured with both a domain name and a SPKI pinset 
             for a DNS sever
             should match on both a valid credential for the domain name
             and a valid SPKI pinset when connecting to that DNS server.
@@ -647,7 +653,7 @@ please see http://xml.resource.org/authoring/README.html. -->
                DNS clients and server MUST implement only (D)TLS 1.2 or later.</t>
 
                <t>
-                 Implmentations MUST NOT offer or provide TLS
+                 Implementations MUST NOT offer or provide TLS
                  compression, since compression can leak significant
                  amounts of information, especially to a network
                  observer capable of forcing the user to do an
@@ -720,7 +726,9 @@ please see http://xml.resource.org/authoring/README.html. -->
         </section>
 
         <section anchor="Acknowledgements" title="Acknowledgements">
-            <t>TODO</t>
+            <t>[TODO - just an initial list the moment] Daniel Kahn Gillmore, 
+                Shumon Huque, Melinda Shore, John Dickinson, DTLS-over-TLS authors, 
+                DNS-over-TLS authors.</t>
         </section>
     </middle>
 
