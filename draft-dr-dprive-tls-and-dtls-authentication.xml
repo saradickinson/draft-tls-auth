@@ -297,17 +297,17 @@ please see http://xml.resource.org/authoring/README.html. -->
 
         <section title="SRV Service Label">
           <t>
-            This specification adds a SRV service label "domains" for
+            This specification adds a SRV service label "domain-s" for
             privacy-enabling DNS servers.
           </t>
           <t>
             Example service records (for TLS and DTLS respectively):
             <list>
               <t>
-                _domains._tcp     SRV 0 1 853 dns.example.com.
+                _domain-s._tcp     SRV 0 1 853 dns.example.com.
               </t>
               <t>
-                _domains._udp     SRV 0 1 853 dns.example.com.
+                _domain-s._udp     SRV 0 1 853 dns.example.com.
               </t>
             </list>
           </t>
@@ -429,7 +429,7 @@ please see http://xml.resource.org/authoring/README.html. -->
                 Example: For a DNS client configured in this way to do
                 strict DNS privacy to dns.example.net, it would
                 opportunistically look up the SRV for
-                _domains._tcp.dns.example.net and determine addresses
+                _domain-s._tcp.dns.example.net and determine addresses
                 (via opportunistic A and/or AAAA lookups) for the
                 resulting SRV response(s).
               </t>
@@ -496,7 +496,7 @@ please see http://xml.resource.org/authoring/README.html. -->
               the server based on the domain name: A DNS-ID and an
               <xref target="RFC4985">SRV-ID</xref>.  The DNS-ID is
               simply the domain name itself.  The SRV-ID uses a
-              "_domains." prefix.  So if the configured domain name is
+              "_domain-s." prefix.  So if the configured domain name is
               "dns.example.com", then the two Reference Identifiers
               are:
               <list style="ordered">
@@ -504,7 +504,7 @@ please see http://xml.resource.org/authoring/README.html. -->
                   DNS-ID: dns.example.com
                 </t>
                 <t>
-                  SRV-ID: _domains.dns.example.com
+                  SRV-ID: _domain-s.dns.example.com
                 </t>
               </list>
             </t>
