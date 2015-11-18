@@ -335,7 +335,7 @@ please see http://xml.resource.org/authoring/README.html. -->
             resolvers or non-(D)TLS resolvers with strictly-configured
             (D)TLS resolvers. Doing so would invalidate the
             protections offered against an active attacker.
-            [SARA: I think I see what you are getting at here, but I think of it that
+            [SARA->DKG: I think I see what you are getting at here, but I think of it that
             the 'profile' is a setting that applies to the
             resolution of a particular query, it is
             not a property a DNS server (nor the client). And so I think that is
@@ -407,7 +407,7 @@ please see http://xml.resource.org/authoring/README.html. -->
               <t>
                 [ TODO: should we offer choice of port here as well as
                 name and IP address? ]
-                [SARA: No, I don't think we need to do that.]
+                [SARA->DKG: No, I don't think we need to do that.]
               </t>
             </section>
 
@@ -606,7 +606,7 @@ please see http://xml.resource.org/authoring/README.html. -->
           <t>
             [DKG: not sure about this section -- this seems to be
             slipping away from strong authentication or profiling, so
-            i think it is out of scope.][SARA: I think this covers some aspects
+            i think it is out of scope.][SARA->DKG: I think this covers some aspects
             unique to DNS that apply to both TLS and DTLS. For example 2 protocols are
             available for encryption and typically multiple DNS servers. It should
             be somewhere in a document which covers both protocols.]
@@ -681,7 +681,7 @@ please see http://xml.resource.org/authoring/README.html. -->
                 <t>
                   Relevant DNS extensions for DNS
                   clients and DNS servers using (D)TLS [TODO: does this belong
-                  elsewhere in the draft or in another document?] [SARA: I think a separate
+                  elsewhere in the draft or in another document?] [SARA->DKG: I think a separate
                   section in this document would be the best place.]
                   <list style="symbols">
                     <t>
