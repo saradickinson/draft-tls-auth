@@ -143,7 +143,7 @@ please see http://xml.resource.org/authoring/README.html. -->
               This document also defines a (D)TLS protocol profile for
               use with DNS. This profile defines the configuration
               options and protocol extensions required of both parties
-              to optimize connection establishment and resumption for
+              to optimize connection establishment and session resumption for
               transporting DNS, and to support the authentication
               profiles defined here.
             </t>
@@ -217,11 +217,6 @@ please see http://xml.resource.org/authoring/README.html. -->
                     target="tls-profile"/>.
                   </t>
               </list>
-              [QUESTION: This assumes that all servers that implement 
-              DNS-over-DTLS will be required to implement DNS-over-TLS to support
-              truncation. This is implied in the msg-flows draft but isn’t yet 
-              stated in the current DNS-over-DTLS draft. But I believe it will 
-              be in the next version? ]
             </t>
           </list>
           </t>
@@ -538,7 +533,7 @@ please see http://xml.resource.org/authoring/README.html. -->
               be obtained via a trusted out of band source.
             </t>
             <t> It is noted that
-            <xref target="dane"/> says "Clients that validate the DNSSEC signatures themselves MUST use
+            <xref target="RFC6698"/> says "Clients that validate the DNSSEC signatures themselves MUST use
                    standard DNSSEC validation procedures.  Clients that rely on another
                    entity to perform the DNSSEC signature validation MUST use a secure
                    mechanism between themselves and the validator."
@@ -643,12 +638,12 @@ please see http://xml.resource.org/authoring/README.html. -->
             <t>This section defines the protocol profile of DNS-over-DTLS and
                DNS-over-TLS.</t>
 
-               <t>There are known attacks on TLS, such as machine-in-the-middle and
-               protocol downgrade.  These are general attacks on TLS and not
-               specific to DNS-over-TLS; please refer to the TLS RFCs for
+               <t>There are known attacks on (D)TLS, such as machine-in-the-middle and
+               protocol downgrade.  These are general attacks on (D)TLS and not
+               specific to DNS-over-TLS; please refer to the (D)TLS RFCs for
                discussion of these security issues.  Clients and servers MUST
-               adhere to the TLS implementation recommendations and security
-               considerations of <xref target="RFC7525"/> except with respect to TLS version.
+               adhere to the (D)TLS implementation recommendations and security
+               considerations of <xref target="RFC7525"/> except with respect to (D)TLS version.
                Since encryption of DNS using (D)TLS is virtually a green-field deployment 
                DNS clients and server MUST implement only (D)TLS 1.2 or later.</t>
 
@@ -661,6 +656,7 @@ please see http://xml.resource.org/authoring/README.html. -->
                  target="CRIME">CRIME attacks</xref>.
                </t>
 
+
                <t>Implementations compliant with this profile MUST implement all of
                the following items:</t>
                 <t><list style="symbols">
@@ -668,7 +664,7 @@ please see http://xml.resource.org/authoring/README.html. -->
                     which eliminates the need for the server to retain cryptographic
                     state for longer than necessary.</t>
                <t><xref target="RFC7250">Raw public keys</xref>
-                   which reduce the size of the ServerHello, and can be used by clients
+                   which reduce the size of the ServerHello, and can be used by servers
                    that cannot obtain certificates (e.g., DNS servers on private networks). </t>
                 </list></t>
 
@@ -721,7 +717,8 @@ please see http://xml.resource.org/authoring/README.html. -->
         </section>
 
         <section title="Security Considerations" anchor="security">
-            <t>TODO</t>
+            <t>Security considerations discussed in <xref target="RFC7525"/>
+               apply to this document.</t>
 
         </section>
 
@@ -757,18 +754,18 @@ please see http://xml.resource.org/authoring/README.html. -->
             <?rfc include="reference.I-D.shore-tls-dnssec-chain-extension"?>
             <?rfc include="reference.I-D.mayrhofer-edns0-padding"?>
             <?rfc include="reference.I-D.ietf-dnsop-edns-client-subnet"?>
-      <reference anchor="CRIME">
-        <front>
-          <title>The CRIME Attack</title>
-          <author initials="J." surname="Rizzo" />
-          <author initials="T." surname="Duong">
-            <organization>
-              EKOparty Security Conference
-            </organization>
-          </author>
-          <date year="2012" />
-        </front>
-      </reference>
+            <reference anchor="CRIME">
+              <front>
+                <title>The CRIME Attack</title>
+                <author initials="J." surname="Rizzo" />
+                <author initials="T." surname="Duong">
+                  <organization>
+                    EKOparty Security Conference
+                  </organization>
+                </author>
+                <date year="2012" />
+              </front>
+            </reference>
         </references>
 
         <section title="Changes between revisions">
