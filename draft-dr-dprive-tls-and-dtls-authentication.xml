@@ -330,11 +330,22 @@ please see http://xml.resource.org/authoring/README.html. -->
                         </t>
                 </list>
             </t>
-            <t>[QUESTION: Do you think it would be useful to an add ASCII art
-                table that compared the privacy guarantees of clear text, 
-                encrypted and encrypted/authenticated connections against 
-                different attacks?]
-            </t>
+
+            <texttable anchor="table_ex" title="DNS Privacy Protection by Usage Profile and type of attacker">
+              <ttcol align='center'>Usage Profile</ttcol>
+              <ttcol align='center'>Passive Attacker</ttcol>
+              <ttcol align='center'>Active Attacker</ttcol>
+              <c>No Privacy</c>
+              <c>N</c>
+              <c>N</c>
+              <c>Opportunistic Privacy</c>
+              <c>P</c>
+              <c>N</c>
+              <c>Strict Privacy</c>
+              <c>P</c>
+              <c>P</c>
+              <postamble>P == protection; N == no protection</postamble>
+            </texttable>
             <t>Since Strict Privacy provides the strongest privacy guarantees it
                 is preferable to Opportunistic Privacy which is preferable to 
                 No Privacy. However since the different profiles require varying
