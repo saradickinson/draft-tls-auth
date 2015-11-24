@@ -340,11 +340,13 @@ please see http://xml.resource.org/authoring/README.html. -->
               <c>N</c>
               <c>Opportunistic Privacy</c>
               <c>P</c>
-              <c>N</c>
+              <c>N (D)</c>
               <c>Strict Privacy</c>
               <c>P</c>
               <c>P</c>
-              <postamble>P == protection; N == no protection</postamble>
+              <postamble>P == protection;
+              N == no protection;
+              D == detection is possible</postamble>
             </texttable>
             <t>Since Strict Privacy provides the strongest privacy guarantees it
                 is preferable to Opportunistic Privacy which is preferable to 
@@ -420,17 +422,18 @@ please see http://xml.resource.org/authoring/README.html. -->
             An <xref target="RFC7435">Opportunistic Security</xref>
             profile is described in <xref
             target="I-D.ietf-dprive-dns-over-tls"/> which MAY be used
-            for both DNS-over-(D)TLS.
+            for DNS-over-(D)TLS.
           </t>
           <t>
-            DNS clients issuing queries under an
-            opportunistic profile which know of a domain name for
-            a DNS server MAY choose to try to authenticate the server
-            using the mechanisms described here. This is useful for debugging or
-            diagnostic purposes if there are means to report the
-            result of the authentication attempt. This information can provide
-            a basis for a DNS client to switch to (preferred) Strict Privacy 
-            where it is viable.
+            DNS clients issuing queries under an opportunistic profile
+            which know of a domain name for a DNS server MAY choose to
+            try to authenticate the server using the mechanisms
+            described here. This is useful for detecting (but not
+            preventing) active attack, and for debugging or diagnostic
+            purposes if there are means to report the result of the
+            authentication attempt. This information can provide a
+            basis for a DNS client to switch to (preferred) Strict
+            Privacy where it is viable.
           </t>
         </section>
 
