@@ -363,11 +363,10 @@ please see http://xml.resource.org/authoring/README.html. -->
                 in an emergency).
             </t>
             <t>A DNS client SHOULD select a particular usage profile when 
-                resolving a query, the client should not mix usage profiles or 
-                fallback between them during the resolution process as this 
-                could invalidate the protection
-                offered against attackers (in particular the protection 
-                offered against active attackers by Strict Privacy).
+                resolving a query. A DNS client MUST NOT fallback from Strict
+                Privacy to Opportunistic Privacy during the resolution process
+                as this could invalidate the protection
+                offered against active attackers.
             </t>
           </section>
           <section title= "Authentication">
@@ -393,7 +392,7 @@ please see http://xml.resource.org/authoring/README.html. -->
                 </t>
               </section>
               <section title="Credential Verification">
-                  <t>The use of SPKI pinset verification is discusses in
+                  <t>The use of SPKI pinset verification is discussed in
                      <xref target="I-D.ietf-dprive-dns-over-tls"/>.</t>
                   <t>In terms of domain name based verification, once a domain 
                      name is known for a DNS server a choice of mechanisms
@@ -402,7 +401,7 @@ please see http://xml.resource.org/authoring/README.html. -->
                      certificate based authentication and DANE.
                   </t>
                   <t>Note that the use of DANE adds
-                     requirements on the ability of the client get validated 
+                     requirements on the ability of the client to get validated 
                      DNSSEC results. This is discussed in more detail in
                      <xref target="dane"/>.
                  </t>
@@ -794,7 +793,7 @@ please see http://xml.resource.org/authoring/README.html. -->
                   <list style="symbols">
                     <t>
                       <xref
-                      target="I-D.mayrhofer-edns0-padding">EDNS(0)
+                      target="I-D.ietf-dprive-edns0-padding">EDNS(0)
                       padding</xref>, which allows encrypted queries
                       and responses to hide their size.
                     </t>
@@ -848,7 +847,7 @@ please see http://xml.resource.org/authoring/README.html. -->
             <?rfc include="reference.I-D.ietf-dprive-dnsodtls"?>
             <?rfc include="reference.I-D.ietf-dprive-dns-over-tls"?>
             <?rfc include="reference.I-D.shore-tls-dnssec-chain-extension"?>
-            <?rfc include="reference.I-D.mayrhofer-edns0-padding"?>
+            <?rfc include="reference.I-D.ietf-dprive-edns0-padding"?>
             <?rfc include="reference.I-D.ietf-dnsop-edns-client-subnet"?>
             <reference anchor="CRIME">
               <front>
