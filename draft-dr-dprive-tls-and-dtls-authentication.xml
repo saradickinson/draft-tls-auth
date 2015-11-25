@@ -330,11 +330,24 @@ please see http://xml.resource.org/authoring/README.html. -->
                         </t>
                 </list>
             </t>
-            <t>[QUESTION: Do you think it would be useful to an add ASCII art
-                table that compared the privacy guarantees of clear text, 
-                encrypted and encrypted/authenticated connections against 
-                different attacks?]
-            </t>
+
+            <texttable anchor="table_ex" title="DNS Privacy Protection by Usage Profile and type of attacker">
+              <ttcol align='center'>Usage Profile</ttcol>
+              <ttcol align='center'>Passive Attacker</ttcol>
+              <ttcol align='center'>Active Attacker</ttcol>
+              <c>No Privacy</c>
+              <c>N</c>
+              <c>N</c>
+              <c>Opportunistic Privacy</c>
+              <c>P</c>
+              <c>N (D)</c>
+              <c>Strict Privacy</c>
+              <c>P</c>
+              <c>P</c>
+              <postamble>P == protection;
+              N == no protection;
+              D == detection is possible</postamble>
+            </texttable>
             <t>Since Strict Privacy provides the strongest privacy guarantees it
                 is preferable to Opportunistic Privacy which is preferable to 
                 No Privacy. However since the different profiles require varying
@@ -375,7 +388,7 @@ please see http://xml.resource.org/authoring/README.html. -->
                   As such, before connecting to a DNS server, a
                   DNS client needs to learn the domain name it should associate
                   with the IP address of a DNS server for authentication purposes.
-                  Sources of domains names are discusses in <xref target="srv"/>
+                  Sources of domains names are discussed in <xref target="srv"/>
                   and <xref target="identifier-sources"/>.
                 </t>
               </section>
@@ -409,17 +422,18 @@ please see http://xml.resource.org/authoring/README.html. -->
             An <xref target="RFC7435">Opportunistic Security</xref>
             profile is described in <xref
             target="I-D.ietf-dprive-dns-over-tls"/> which MAY be used
-            for both DNS-over-(D)TLS.
+            for DNS-over-(D)TLS.
           </t>
           <t>
-            DNS clients issuing queries under an
-            opportunistic profile which know of a domain name for
-            a DNS server MAY choose to try to authenticate the server
-            using the mechanisms described here. This is useful for debugging or
-            diagnostic purposes if there are means to report the
-            result of the authentication attempt. This information can provide
-            a basis for a DNS client to switch to (preferred) Strict Privacy 
-            where it is viable.
+            DNS clients issuing queries under an opportunistic profile
+            which know of a domain name for a DNS server MAY choose to
+            try to authenticate the server using the mechanisms
+            described here. This is useful for detecting (but not
+            preventing) active attack, and for debugging or diagnostic
+            purposes if there are means to report the result of the
+            authentication attempt. This information can provide a
+            basis for a DNS client to switch to (preferred) Strict
+            Privacy where it is viable.
           </t>
         </section>
 
