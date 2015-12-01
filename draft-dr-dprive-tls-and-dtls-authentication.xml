@@ -89,7 +89,7 @@ please see http://xml.resource.org/authoring/README.html. -->
             </address>
         </author>
 
-        <date month="Nov" year="2015"/>
+        <date month="Dec" year="2015"/>
         <!-- If the month and year are both specified and are the current ones, xml2rfc will fill
           in the current day for you. If only the current year is specified, xml2rfc will fill
         in the current day and month for you. If the year is not the current one, it is
@@ -145,7 +145,7 @@ please see http://xml.resource.org/authoring/README.html. -->
                 </t>
                 <t>
                   What are the acceptable credentials a DNS server can present
-                  to prove its identity for authentication in relation to a given
+                  to prove its identity for (D)TLS authentication based on a given
                   domain name.
                 </t>
                 <t>
@@ -353,14 +353,8 @@ please see http://xml.resource.org/authoring/README.html. -->
                 No Privacy. However since the different profiles require varying
                 levels of configuration (or a trusted relationship with a 
                 provider) DNS
-                clients will need to carefully select which profile to use in
-                a particular network environment depending on their privacy
-                concerns combined with the desire to receive a response.
-                For example, a corporate user in an
-                enterprise environment might want to use only Strict Privacy 
-                whereas a mobile user in a roaming environment might be willing
-                to use Opportunistic Privacy (or even No Privacy, for example, 
-                in an emergency).
+                clients will need to carefully select which profile to use based
+                on their communication privacy needs.
             </t>
             <t>A DNS client SHOULD select a particular usage profile when 
                 resolving a query. A DNS client MUST NOT fallback from Strict
@@ -788,7 +782,7 @@ please see http://xml.resource.org/authoring/README.html. -->
                   resolver to authoritative traffic).</t>
 
                 <t> DNS-over-(D)TLS clients and
-                  servers should consider implementing the following relevant
+                  servers SHOULD consider implementing the following relevant
                   DNS extensions
                   <list style="symbols">
                     <t>
@@ -881,7 +875,8 @@ please see http://xml.resource.org/authoring/README.html. -->
                 clients that implement both TLS and DTLS should try to authenticate
                 using both protocols before failing or falling back to a
                 lower security. DNS clients using opportunistic security should
-                try all available servers in order to obtain an authenticated
+                try all available servers (possibly in parallel) in order to
+                obtain an authenticated
                 encrypted connection before falling back to a lower security.
                 (RATIONALE: This approach can increase latency while discovering
                 server capabilities but maximizes the chance of sending the

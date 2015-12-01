@@ -5,10 +5,10 @@
 dprive                                                      S. Dickinson
 Internet-Draft                                                   Sinodun
 Intended status: Standards Track                              D. Gillmor
-Expires: May 28, 2016                                               ACLU
+Expires: June 3, 2016                                               ACLU
                                                                 T. Reddy
                                                                    Cisco
-                                                       November 25, 2015
+                                                        December 1, 2015
 
 
   Authentication and (D)TLS Profile for DNS-over-TLS and DNS-over-DTLS
@@ -37,7 +37,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on May 28, 2016.
+   This Internet-Draft will expire on June 3, 2016.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Dickinson, et al.         Expires May 28, 2016                  [Page 1]
+Dickinson, et al.         Expires June 3, 2016                  [Page 1]
 
-Internet-Draft            (D)TLS Authentication            November 2015
+Internet-Draft            (D)TLS Authentication            December 2015
 
 
    include Simplified BSD License text as described in Section 4.e of
@@ -81,15 +81,15 @@ Table of Contents
      8.1.  Full direct configuration . . . . . . . . . . . . . . . .   8
      8.2.  Direct configuration of name only . . . . . . . . . . . .   8
      8.3.  DHCP  . . . . . . . . . . . . . . . . . . . . . . . . . .   9
-   9.  Credential Verification . . . . . . . . . . . . . . . . . . .   9
+   9.  Credential Verification . . . . . . . . . . . . . . . . . . .  10
      9.1.  X.509 Certificate Based Authentication  . . . . . . . . .  10
      9.2.  DANE  . . . . . . . . . . . . . . . . . . . . . . . . . .  10
-       9.2.1.  Direct DNS Lookup . . . . . . . . . . . . . . . . . .  10
+       9.2.1.  Direct DNS Lookup . . . . . . . . . . . . . . . . . .  11
        9.2.2.  TLS DNSSEC Chain extension  . . . . . . . . . . . . .  11
    10. Combined Credentials with SPKI Pinsets  . . . . . . . . . . .  11
    11. (D)TLS Protocol Profile . . . . . . . . . . . . . . . . . . .  11
    12. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  12
-   13. Security Considerations . . . . . . . . . . . . . . . . . . .  12
+   13. Security Considerations . . . . . . . . . . . . . . . . . . .  13
      13.1.  Counter-measures to DNS Traffic Analysis . . . . . . . .  13
    14. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  13
    15. References  . . . . . . . . . . . . . . . . . . . . . . . . .  13
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Dickinson, et al.         Expires May 28, 2016                  [Page 2]
+Dickinson, et al.         Expires June 3, 2016                  [Page 2]
 
-Internet-Draft            (D)TLS Authentication            November 2015
+Internet-Draft            (D)TLS Authentication            December 2015
 
 
    o  DNS-over-DTLS [I-D.ietf-dprive-dnsodtls]
@@ -124,7 +124,7 @@ Internet-Draft            (D)TLS Authentication            November 2015
    o  How a DNS client can obtain a domain name for a DNS server.
 
    o  What are the acceptable credentials a DNS server can present to
-      prove its identity for authentication in relation to a given
+      prove its identity for (D)TLS authentication based on a given
       domain name.
 
    o  How a DNS client can verify that any given credential matches the
@@ -165,9 +165,9 @@ Internet-Draft            (D)TLS Authentication            November 2015
 
 
 
-Dickinson, et al.         Expires May 28, 2016                  [Page 3]
+Dickinson, et al.         Expires June 3, 2016                  [Page 3]
 
-Internet-Draft            (D)TLS Authentication            November 2015
+Internet-Draft            (D)TLS Authentication            December 2015
 
 
    o  (D)TLS: For brevity this term is used for statements that apply to
@@ -221,9 +221,9 @@ Internet-Draft            (D)TLS Authentication            November 2015
 
 
 
-Dickinson, et al.         Expires May 28, 2016                  [Page 4]
+Dickinson, et al.         Expires June 3, 2016                  [Page 4]
 
-Internet-Draft            (D)TLS Authentication            November 2015
+Internet-Draft            (D)TLS Authentication            December 2015
 
 
 4.  Discussion
@@ -270,18 +270,22 @@ Internet-Draft            (D)TLS Authentication            November 2015
       either encryption or authentication.  Queries are always sent in
       clear text.  This provides no privacy guarantees to the client.
 
+
+
+
+
+
+
+
+Dickinson, et al.         Expires June 3, 2016                  [Page 5]
+
+Internet-Draft            (D)TLS Authentication            December 2015
+
+
       +-----------------------+------------------+-----------------+
       |     Usage Profile     | Passive Attacker | Active Attacker |
       +-----------------------+------------------+-----------------+
       |       No Privacy      |        N         |        N        |
-
-
-
-Dickinson, et al.         Expires May 28, 2016                  [Page 5]
-
-Internet-Draft            (D)TLS Authentication            November 2015
-
-
       | Opportunistic Privacy |        P         |      N (D)      |
       |     Strict Privacy    |        P         |        P        |
       +-----------------------+------------------+-----------------+
@@ -294,13 +298,8 @@ Internet-Draft            (D)TLS Authentication            November 2015
    preferable to Opportunistic Privacy which is preferable to No
    Privacy.  However since the different profiles require varying levels
    of configuration (or a trusted relationship with a provider) DNS
-   clients will need to carefully select which profile to use in a
-   particular network environment depending on their privacy concerns
-   combined with the desire to receive a response.  For example, a
-   corporate user in an enterprise environment might want to use only
-   Strict Privacy whereas a mobile user in a roaming environment might
-   be willing to use Opportunistic Privacy (or even No Privacy, for
-   example, in an emergency).
+   clients will need to carefully select which profile to use based on
+   their communication privacy needs.
 
    A DNS client SHOULD select a particular usage profile when resolving
    a query.  A DNS client MUST NOT fallback from Strict Privacy to
@@ -333,9 +332,10 @@ Internet-Draft            (D)TLS Authentication            November 2015
 
 
 
-Dickinson, et al.         Expires May 28, 2016                  [Page 6]
+
+Dickinson, et al.         Expires June 3, 2016                  [Page 6]
 
-Internet-Draft            (D)TLS Authentication            November 2015
+Internet-Draft            (D)TLS Authentication            December 2015
 
 
    In terms of domain name based verification, once a domain name is
@@ -389,9 +389,9 @@ Internet-Draft            (D)TLS Authentication            November 2015
 
 
 
-Dickinson, et al.         Expires May 28, 2016                  [Page 7]
+Dickinson, et al.         Expires June 3, 2016                  [Page 7]
 
-Internet-Draft            (D)TLS Authentication            November 2015
+Internet-Draft            (D)TLS Authentication            December 2015
 
 
    With Strict Privacy, the DNS client MUST NOT provide DNS service
@@ -445,9 +445,9 @@ Internet-Draft            (D)TLS Authentication            November 2015
 
 
 
-Dickinson, et al.         Expires May 28, 2016                  [Page 8]
+Dickinson, et al.         Expires June 3, 2016                  [Page 8]
 
-Internet-Draft            (D)TLS Authentication            November 2015
+Internet-Draft            (D)TLS Authentication            December 2015
 
 
    A DNS client may be configured directly with only the domain name of
@@ -496,15 +496,17 @@ Internet-Draft            (D)TLS Authentication            November 2015
    progress to secure IPv6 connections for DHCP it appears unlikely that
    IPv4 connections will be secured any time soon.]
 
-9.  Credential Verification
 
 
 
 
-Dickinson, et al.         Expires May 28, 2016                  [Page 9]
+
+Dickinson, et al.         Expires June 3, 2016                  [Page 9]
 
-Internet-Draft            (D)TLS Authentication            November 2015
+Internet-Draft            (D)TLS Authentication            December 2015
 
+
+9.  Credential Verification
 
 9.1.  X.509 Certificate Based Authentication
 
@@ -552,15 +554,15 @@ Internet-Draft            (D)TLS Authentication            November 2015
    _853._tcp.dns.example.com for TLS? _853._udp.dns.example.com for
    DTLS? ]
 
-9.2.1.  Direct DNS Lookup
 
 
 
-
-Dickinson, et al.         Expires May 28, 2016                 [Page 10]
+Dickinson, et al.         Expires June 3, 2016                 [Page 10]
 
-Internet-Draft            (D)TLS Authentication            November 2015
+Internet-Draft            (D)TLS Authentication            December 2015
 
+
+9.2.1.  Direct DNS Lookup
 
    The DNS client MAY choose to perform the DNS lookups to retrieve the
    required DANE records itself.  The DNS queries for such DANE records
@@ -608,16 +610,16 @@ Internet-Draft            (D)TLS Authentication            November 2015
 
    There are known attacks on (D)TLS, such as machine-in-the-middle and
    protocol downgrade.  These are general attacks on (D)TLS and note
+
+
+
+Dickinson, et al.         Expires June 3, 2016                 [Page 11]
+
+Internet-Draft            (D)TLS Authentication            December 2015
+
+
    specific to DNS-over-TLS; please refer to the (D)TLS RFCs for
    discussion of these security issues.  Clients and servers MUST adhere
-
-
-
-Dickinson, et al.         Expires May 28, 2016                 [Page 11]
-
-Internet-Draft            (D)TLS Authentication            November 2015
-
-
    to the (D)TLS implementation recommendations and security
    considerations of [RFC7525] except with respect to (D)TLS version.
    Since encryption of DNS using (D)TLS is virtually a green-field
@@ -663,16 +665,16 @@ Internet-Draft            (D)TLS Authentication            November 2015
 
    This memo includes no request to IANA.
 
-13.  Security Considerations
 
 
 
 
-
-Dickinson, et al.         Expires May 28, 2016                 [Page 12]
+Dickinson, et al.         Expires June 3, 2016                 [Page 12]
 
-Internet-Draft            (D)TLS Authentication            November 2015
+Internet-Draft            (D)TLS Authentication            December 2015
 
+
+13.  Security Considerations
 
    Security considerations discussed in [RFC7525],
    [I-D.ietf-dprive-dnsodtls] and [I-D.ietf-dprive-dns-over-tls] apply
@@ -686,7 +688,7 @@ Internet-Draft            (D)TLS Authentication            November 2015
    traffic size, or via monitoring of resolver to authoritative
    traffic).
 
-   DNS-over-(D)TLS clients and servers should consider implementing the
+   DNS-over-(D)TLS clients and servers SHOULD consider implementing the
    following relevant DNS extensions
 
    o  EDNS(0) padding [I-D.ietf-dprive-edns0-padding], which allows
@@ -712,7 +714,9 @@ Internet-Draft            (D)TLS Authentication            November 2015
 15.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
-              Requirement Levels", BCP 14, RFC 2119, March 1997.
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <http://www.rfc-editor.org/info/rfc2119>.
 
    [RFC4985]  Santesson, S., "Internet X.509 Public Key Infrastructure
               Subject Alternative Name for Expression of Service Name",
@@ -721,13 +725,9 @@ Internet-Draft            (D)TLS Authentication            November 2015
 
 
 
-
-
-
-
-Dickinson, et al.         Expires May 28, 2016                 [Page 13]
+Dickinson, et al.         Expires June 3, 2016                 [Page 13]
 
-Internet-Draft            (D)TLS Authentication            November 2015
+Internet-Draft            (D)TLS Authentication            December 2015
 
 
    [RFC5077]  Salowey, J., Zhou, H., Eronen, P., and H. Tschofenig,
@@ -736,8 +736,8 @@ Internet-Draft            (D)TLS Authentication            November 2015
               January 2008, <http://www.rfc-editor.org/info/rfc5077>.
 
    [RFC5246]  Dierks, T. and E. Rescorla, "The Transport Layer Security
-              (TLS) Protocol Version 1.2", RFC 5246, DOI 10.17487/
-              RFC5246, August 2008,
+              (TLS) Protocol Version 1.2", RFC 5246,
+              DOI 10.17487/RFC5246, August 2008,
               <http://www.rfc-editor.org/info/rfc5246>.
 
    [RFC6125]  Saint-Andre, P. and J. Hodges, "Representation and
@@ -777,15 +777,16 @@ Internet-Draft            (D)TLS Authentication            November 2015
               "Client Subnet in DNS Queries", draft-ietf-dnsop-edns-
               client-subnet-04 (work in progress), September 2015.
 
-   [I-D.ietf-dprive-dns-over-tls]
 
 
 
-Dickinson, et al.         Expires May 28, 2016                 [Page 14]
+
+Dickinson, et al.         Expires June 3, 2016                 [Page 14]
 
-Internet-Draft            (D)TLS Authentication            November 2015
+Internet-Draft            (D)TLS Authentication            December 2015
 
 
+   [I-D.ietf-dprive-dns-over-tls]
               Zi, Z., Zhu, L., Heidemann, J., Mankin, A., Wessels, D.,
               and P. Hoffman, "DNS over TLS: Initiation and Performance
               Considerations", draft-ietf-dprive-dns-over-tls-01 (work
@@ -793,8 +794,8 @@ Internet-Draft            (D)TLS Authentication            November 2015
 
    [I-D.ietf-dprive-dnsodtls]
               Reddy, T., Wing, D., and P. Patil, "DNS over DTLS
-              (DNSoD)", draft-ietf-dprive-dnsodtls-02 (work in
-              progress), October 2015.
+              (DNSoD)", draft-ietf-dprive-dnsodtls-03 (work in
+              progress), November 2015.
 
    [I-D.ietf-dprive-edns0-padding]
               Mayrhofer, A., "The EDNS(0) Padding Option", draft-ietf-
@@ -816,8 +817,8 @@ Internet-Draft            (D)TLS Authentication            November 2015
               draft-shore-tls-dnssec-chain-extension-02 (work in
               progress), October 2015.
 
-   [RFC2131]  Droms, R., "Dynamic Host Configuration Protocol", RFC
-              2131, DOI 10.17487/RFC2131, March 1997,
+   [RFC2131]  Droms, R., "Dynamic Host Configuration Protocol",
+              RFC 2131, DOI 10.17487/RFC2131, March 1997,
               <http://www.rfc-editor.org/info/rfc2131>.
 
    [RFC2132]  Alexander, S. and R. Droms, "DHCP Options and BOOTP Vendor
@@ -836,10 +837,9 @@ Internet-Draft            (D)TLS Authentication            November 2015
 
 
 
-
-Dickinson, et al.         Expires May 28, 2016                 [Page 15]
+Dickinson, et al.         Expires June 3, 2016                 [Page 15]
 
-Internet-Draft            (D)TLS Authentication            November 2015
+Internet-Draft            (D)TLS Authentication            December 2015
 
 
    [RFC7626]  Bortzmeyer, S., "DNS Privacy Considerations", RFC 7626,
@@ -862,11 +862,11 @@ Appendix A.  Server capability probing and caching by DNS clients
    clients that implement both TLS and DTLS should try to authenticate
    using both protocols before failing or falling back to a lower
    security.  DNS clients using opportunistic security should try all
-   available servers in order to obtain an authenticated encrypted
-   connection before falling back to a lower security.  (RATIONALE: This
-   approach can increase latency while discovering server capabilities
-   but maximizes the chance of sending the query over an authenticated
-   encrypted connection.)
+   available servers (possibly in parallel) in order to obtain an
+   authenticated encrypted connection before falling back to a lower
+   security.  (RATIONALE: This approach can increase latency while
+   discovering server capabilities but maximizes the chance of sending
+   the query over an authenticated encrypted connection.)
 
    [TODO: Should we make recommendations about what to do if a
    previously authenticated server starts failing authentication?]
@@ -893,9 +893,9 @@ Authors' Addresses
 
 
 
-Dickinson, et al.         Expires May 28, 2016                 [Page 16]
+Dickinson, et al.         Expires June 3, 2016                 [Page 16]
 
-Internet-Draft            (D)TLS Authentication            November 2015
+Internet-Draft            (D)TLS Authentication            December 2015
 
 
    Daniel Kahn Gillmor
@@ -949,4 +949,4 @@ Internet-Draft            (D)TLS Authentication            November 2015
 
 
 
-Dickinson, et al.         Expires May 28, 2016                 [Page 17]
+Dickinson, et al.         Expires June 3, 2016                 [Page 17]
