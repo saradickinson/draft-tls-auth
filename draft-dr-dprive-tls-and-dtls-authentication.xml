@@ -284,8 +284,8 @@ please see http://xml.resource.org/authoring/README.html. -->
               encrypting the query (and response). Such encryption
               typically provides integrity protection as a side-effect,
               which means on-path attackers cannot simply inject bogus
-              DNS responses. For DNS privacy to provide protection against
-              both passive attacks and active attackers pretending to be
+              DNS responses. For DNS privacy to also provide protection against
+              active attackers pretending to be
               the server, the client must authenticate the server.
             </t>
           </section>
