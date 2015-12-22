@@ -1,6 +1,6 @@
 #!/usr/bin/make -f
 
-all: draft-dr-dprive-tls-and-dtls-authentication.txt draft-dr-dprive-tls-and-dtls-authentication.html
+all: draft-dgr-dprive-tls-and-dtls-profiles.txt draft-dr-dprive-tls-and-dtls-profiles.html
 
 %.txt: %.xml
 	xml2rfc $< --text
