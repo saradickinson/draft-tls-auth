@@ -264,9 +264,7 @@ please see http://xml.resource.org/authoring/README.html. -->
                 SPKI-pinset-based authentication.  This is defined in
                 <xref target="I-D.ietf-dprive-dns-over-tls"/>.
                 However, <xref target="combined-auth"/> does describe how to combine
-                that approach with the domain name based mechanism described here.
-                [QUESTION: This scope question needs
-                revisiting once the DNS-over-TLS draft is updated... ]</t>
+                that approach with the domain name based mechanism described here.</t>
               <t>
                 Any server identifier other than domain names,
                 including IP address, organizational name, country of
@@ -384,6 +382,10 @@ please see http://xml.resource.org/authoring/README.html. -->
                   Sources of domains names are discussed in <xref target="srv"/>
                   and <xref target="identifier-sources"/>.
                 </t>
+                <t>One advantage of this domain name based approach
+                 is that it encourages
+                 association of stable, human recognisable identifiers with 
+                 secure DNS service providers.</t>
                 <!-- TODO: Should we discuss here why PTR lookups are not proposed here?-->
               </section>
               <section title="Credential Verification">
@@ -595,8 +597,10 @@ please see http://xml.resource.org/authoring/README.html. -->
             <t>
               When a DNS client configured with a domain name connects
               to its configured DNS server over (D)TLS, the
-              server may present it with an X.509 certificate.  The
-              DNS client uses <xref target="RFC6125"/> validation
+              server may present it with an X.509 certificate. In order to 
+              ensure proper authentication, DNS clients MUST verify 
+              the entire certification path per <xref target="RFC5280"/>. The
+              DNS client additionally uses <xref target="RFC6125"/> validation
               techniques to compare the domain name to the certificate
               provided.
             </t>
@@ -708,17 +712,27 @@ please see http://xml.resource.org/authoring/README.html. -->
         <section title="Combined Credentials with SPKI Pinsets" anchor="combined-auth">
           <t>   The SPKI pinset profile described in
             <xref target="I-D.ietf-dprive-dns-over-tls"/> MAY be used with
-            DNS-over-(D)TLS.
-            However, a DNS client that is configured with both a domain name and
+            DNS-over-(D)TLS.</t>
+
+             <t>This draft does not make explicit recommendations about how a SPKI
+             pinset based authentication mechanism should be combined with a
+             domain based mechanism from an operator perspective. However
+             it can be envisaged that a DNS
+             server operator may wish to make both an SPKI pinset and a domain
+             name available to allow clients to choose which mechanism to use.
+             Therefore, the following is guidance on how clients ought to behave if they
+             choose to configure both, as is possible in <xref target="RFC7469">HPKP</xref>.</t>
+
+            <t>A DNS client that is configured with both a domain name and
             a SPKI pinset for a DNS sever
-            should match on both a valid credential for the domain name
+            SHOULD match on both a valid credential for the domain name
             and a valid SPKI pinset when connecting to that DNS server.
           </t>
-          <t>
+          <!--<t>
             [ TODO: describe in more detail why this conservative
             approach is the right one, and what implementations should
             do if they want a more lenient approach. ]
-          </t>
+          </t>-->
         </section>
 
         <section title="(D)TLS Protocol Profile" anchor="tls-profile">
@@ -846,6 +860,7 @@ please see http://xml.resource.org/authoring/README.html. -->
             <?rfc include="reference.RFC.4985"?>
             <?rfc include="reference.RFC.6698"?>
             <?rfc include="reference.RFC.7250"?>
+            <?rfc include="reference.RFC.5280"?>
         </references>
         <references title="Informative References">
             <?rfc include="reference.RFC.7469"?>
