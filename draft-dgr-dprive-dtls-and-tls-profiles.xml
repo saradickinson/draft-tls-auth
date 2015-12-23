@@ -740,7 +740,7 @@ please see http://xml.resource.org/authoring/README.html. -->
 
                <t>There are known attacks on (D)TLS, such as machine-in-the-middle 
                 and protocol downgrade.  These are general attacks on (D)TLS and
-               note specific to DNS-over-TLS; please refer to the (D)TLS RFCs for
+               not specific to DNS-over-TLS; please refer to the (D)TLS RFCs for
                discussion of these security issues.  Clients and servers MUST
                adhere to the (D)TLS implementation recommendations and security
                considerations of <xref target="RFC7525"/> except with respect to
@@ -827,7 +827,7 @@ please see http://xml.resource.org/authoring/README.html. -->
                         Subnet in DNS Queries</xref>. If a DNS client does not 
                         include an EDNS0 Client Subnet Option
                         with a SOURCE PREFIX-LENGTH set to 0 in a query, the DNS server may 
-                        potentially leaks client address information to the upstream
+                        potentially leak client address information to the upstream
                         authoritative DNS servers.  A DNS client ought to be able to
                         inform the DNS Resolver that it does not want any address
                         information leaked, and the DNS Resolver should honor that

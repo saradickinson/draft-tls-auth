@@ -5,10 +5,10 @@
 dprive                                                      S. Dickinson
 Internet-Draft                                                   Sinodun
 Intended status: Standards Track                              D. Gillmor
-Expires: June 24, 2016                                              ACLU
+Expires: June 25, 2016                                              ACLU
                                                                 T. Reddy
                                                                    Cisco
-                                                       December 22, 2015
+                                                       December 23, 2015
 
 
   Authentication and (D)TLS Profile for DNS-over-TLS and DNS-over-DTLS
@@ -37,7 +37,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on June 24, 2016.
+   This Internet-Draft will expire on June 25, 2016.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Dickinson, et al.         Expires June 24, 2016                 [Page 1]
+Dickinson, et al.         Expires June 25, 2016                 [Page 1]
 
 Internet-Draft            (D)TLS Authentication            December 2015
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Dickinson, et al.         Expires June 24, 2016                 [Page 2]
+Dickinson, et al.         Expires June 25, 2016                 [Page 2]
 
 Internet-Draft            (D)TLS Authentication            December 2015
 
@@ -165,7 +165,7 @@ Internet-Draft            (D)TLS Authentication            December 2015
 
 
 
-Dickinson, et al.         Expires June 24, 2016                 [Page 3]
+Dickinson, et al.         Expires June 25, 2016                 [Page 3]
 
 Internet-Draft            (D)TLS Authentication            December 2015
 
@@ -221,7 +221,7 @@ Internet-Draft            (D)TLS Authentication            December 2015
 
 
 
-Dickinson, et al.         Expires June 24, 2016                 [Page 4]
+Dickinson, et al.         Expires June 25, 2016                 [Page 4]
 
 Internet-Draft            (D)TLS Authentication            December 2015
 
@@ -277,7 +277,7 @@ Internet-Draft            (D)TLS Authentication            December 2015
 
 
 
-Dickinson, et al.         Expires June 24, 2016                 [Page 5]
+Dickinson, et al.         Expires June 25, 2016                 [Page 5]
 
 Internet-Draft            (D)TLS Authentication            December 2015
 
@@ -333,7 +333,7 @@ Internet-Draft            (D)TLS Authentication            December 2015
 
 
 
-Dickinson, et al.         Expires June 24, 2016                 [Page 6]
+Dickinson, et al.         Expires June 25, 2016                 [Page 6]
 
 Internet-Draft            (D)TLS Authentication            December 2015
 
@@ -389,7 +389,7 @@ Internet-Draft            (D)TLS Authentication            December 2015
 
 
 
-Dickinson, et al.         Expires June 24, 2016                 [Page 7]
+Dickinson, et al.         Expires June 25, 2016                 [Page 7]
 
 Internet-Draft            (D)TLS Authentication            December 2015
 
@@ -445,7 +445,7 @@ Internet-Draft            (D)TLS Authentication            December 2015
 
 
 
-Dickinson, et al.         Expires June 24, 2016                 [Page 8]
+Dickinson, et al.         Expires June 25, 2016                 [Page 8]
 
 Internet-Draft            (D)TLS Authentication            December 2015
 
@@ -501,7 +501,7 @@ Internet-Draft            (D)TLS Authentication            December 2015
 
 
 
-Dickinson, et al.         Expires June 24, 2016                 [Page 9]
+Dickinson, et al.         Expires June 25, 2016                 [Page 9]
 
 Internet-Draft            (D)TLS Authentication            December 2015
 
@@ -557,7 +557,7 @@ Internet-Draft            (D)TLS Authentication            December 2015
 
 
 
-Dickinson, et al.         Expires June 24, 2016                [Page 10]
+Dickinson, et al.         Expires June 25, 2016                [Page 10]
 
 Internet-Draft            (D)TLS Authentication            December 2015
 
@@ -613,7 +613,7 @@ Internet-Draft            (D)TLS Authentication            December 2015
 
 
 
-Dickinson, et al.         Expires June 24, 2016                [Page 11]
+Dickinson, et al.         Expires June 25, 2016                [Page 11]
 
 Internet-Draft            (D)TLS Authentication            December 2015
 
@@ -623,7 +623,7 @@ Internet-Draft            (D)TLS Authentication            December 2015
    This section defines the (D)TLS protocol profile of DNS-over-(D)TLS.
 
    There are known attacks on (D)TLS, such as machine-in-the-middle and
-   protocol downgrade.  These are general attacks on (D)TLS and note
+   protocol downgrade.  These are general attacks on (D)TLS and not
    specific to DNS-over-TLS; please refer to the (D)TLS RFCs for
    discussion of these security issues.  Clients and servers MUST adhere
    to the (D)TLS implementation recommendations and security
@@ -669,7 +669,7 @@ Internet-Draft            (D)TLS Authentication            December 2015
 
 
 
-Dickinson, et al.         Expires June 24, 2016                [Page 12]
+Dickinson, et al.         Expires June 25, 2016                [Page 12]
 
 Internet-Draft            (D)TLS Authentication            December 2015
 
@@ -704,7 +704,7 @@ Internet-Draft            (D)TLS Authentication            December 2015
    o  Privacy Election using Client Subnet in DNS Queries
       [I-D.ietf-dnsop-edns-client-subnet].  If a DNS client does not
       include an EDNS0 Client Subnet Option with a SOURCE PREFIX-LENGTH
-      set to 0 in a query, the DNS server may potentially leaks client
+      set to 0 in a query, the DNS server may potentially leak client
       address information to the upstream authoritative DNS servers.  A
       DNS client ought to be able to inform the DNS Resolver that it
       does not want any address information leaked, and the DNS Resolver
@@ -725,7 +725,7 @@ Internet-Draft            (D)TLS Authentication            December 2015
 
 
 
-Dickinson, et al.         Expires June 24, 2016                [Page 13]
+Dickinson, et al.         Expires June 25, 2016                [Page 13]
 
 Internet-Draft            (D)TLS Authentication            December 2015
 
@@ -781,7 +781,7 @@ Internet-Draft            (D)TLS Authentication            December 2015
 
 
 
-Dickinson, et al.         Expires June 24, 2016                [Page 14]
+Dickinson, et al.         Expires June 25, 2016                [Page 14]
 
 Internet-Draft            (D)TLS Authentication            December 2015
 
@@ -825,7 +825,7 @@ Internet-Draft            (D)TLS Authentication            December 2015
    [I-D.ietf-tls-cached-info]
               Santesson, S. and H. Tschofenig, "Transport Layer Security
               (TLS) Cached Information Extension", draft-ietf-tls-
-              cached-info-20 (work in progress), October 2015.
+              cached-info-21 (work in progress), December 2015.
 
    [I-D.ietf-tls-falsestart]
               Langley, A., Modadugu, N., and B. Moeller, "Transport
@@ -837,7 +837,7 @@ Internet-Draft            (D)TLS Authentication            December 2015
 
 
 
-Dickinson, et al.         Expires June 24, 2016                [Page 15]
+Dickinson, et al.         Expires June 25, 2016                [Page 15]
 
 Internet-Draft            (D)TLS Authentication            December 2015
 
@@ -893,7 +893,7 @@ Appendix A.  Server capability probing and caching by DNS clients
 
 
 
-Dickinson, et al.         Expires June 24, 2016                [Page 16]
+Dickinson, et al.         Expires June 25, 2016                [Page 16]
 
 Internet-Draft            (D)TLS Authentication            December 2015
 
@@ -949,4 +949,4 @@ Authors' Addresses
 
 
 
-Dickinson, et al.         Expires June 24, 2016                [Page 17]
+Dickinson, et al.         Expires June 25, 2016                [Page 17]
